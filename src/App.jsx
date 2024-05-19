@@ -1,26 +1,9 @@
 import TodoList from './ToDoList.jsx';
 import {todos} from "./todos.js"
 import Header from './Header.jsx';
-//  TODO-DEMO
-//     Create todo list with title and couple of todo items
-//     Add some style
-//     Strikethrough done items item is done when clicked
-//     Create file to store todo items and render items dynamicly
+import {useState} from "react";
 
-//HOMEWORK
-// Adapt code to work with new data structure
-// state:
-//     add component state with list of completed tasks
-//     completed task list should initially be empty
-//     store todoItem id in state onClick
-//     all items listed as completed task list should have className='done'
-//EXTRA:
-//     create separate TodoList component
-//     adapt TodoList component to receive todos as props
-// Recourses
-//React docs -> official react doc
-//Stackoverflow -> community
-//MDN->JS
+
 
 function App() {
     /*<TodoList {...todos[0]}/> */
@@ -29,15 +12,21 @@ function App() {
    label={todos[0].label}
    createdAt={todos[0].createdAt}/> */
 
+    const [clickState, setClickState] = useState([]);
+
+    function onTodoItemClick (id) {
+        // add id of clicked todo to the state
+    }
+
   return (
    <>
-   
-   <Header /> 
-   
-   {todos.map((item) => <TodoList key={item.id} {...item}/>)}
-   
+   <Header />
+    {/*{todos.map((item) => <TodoList key={item.id} {...item} />)}*/}
+       {/*add done class to listItem if id of todo matches any id in clickState*/}
+    {todos.map((item) => <TodoList className={} id={item.id} label={item.label} createdAt={item.createdAt} onClick={() => onTodoItemClick(item.id)} />)}
+       {/*alternative way of key setting */}
+       {/*{todos.map((item, index) => <TodoList key={index} {...item} />)}*/}
    </>
-  
   );
 }
 

@@ -1,30 +1,16 @@
-import { useState } from 'react';
 import './App.css';
 
 
-export default function TodoList ({ listItem, id, label, createdAt}) {
-
-    const [clickState, setClickState] = useState();
-
-    function onTodoItemClick (event) {
-        event.currentTarget.classList.toggle('done');
-        setClickState(event.target)
-        console.log(clickState)
-   }
-    
-   
-    
+export default function TodoList ({ id, label, createdAt, className }) {
     return (
-    
     <div className='todoListContainer'>
        <ul className='list'>
-        <li className={listItem =  "listItem"} onClick={onTodoItemClick}>
+        <li className={`${className} list-item`} id={'to-do-item'} >
             <p>{id}</p>
             <p>{label}</p>
             <p>{createdAt}</p>
         </li>
        </ul>
-       {/*<TodoList  todos={todos}/>*/}
    </div>
    )
    }
