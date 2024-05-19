@@ -1,7 +1,6 @@
-import './App.css';
-
-import { todos } from './todos.js';
-
+import TodoList from './ToDoList.jsx';
+import {todos} from "./todos.js"
+import Header from './Header.jsx';
 //  TODO-DEMO
 //     Create todo list with title and couple of todo items
 //     Add some style
@@ -24,18 +23,21 @@ import { todos } from './todos.js';
 //MDN->JS
 
 function App() {
-    function onTodoItemClick (event) {
-        event.currentTarget.classList.toggle('done');
-    }
+    /*<TodoList {...todos[0]}/> */
+    /*<TodoList
+   id = {todos[0].id}
+   label={todos[0].label}
+   createdAt={todos[0].createdAt}/> */
 
   return (
-    <div className='todoListContainer'>
-     <h1 className='title'>MY TODO LIST</h1>
-        <ul className='list'>
-            {todos.map((todoItem) => <li key={todoItem} className="listItem" onClick={onTodoItemClick}>test</li>)}
-        </ul>
-        {/*<TodoList  todos={todos}/>*/}
-    </div>
+   <>
+   
+   <Header /> 
+   
+   {todos.map((item) => <TodoList key={item.id} {...item}/>)}
+   
+   </>
+  
   );
 }
 
