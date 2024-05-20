@@ -12,20 +12,27 @@ function App() {
    label={todos[0].label}
    createdAt={todos[0].createdAt}/> */
 
-    const [clickState, setClickState] = useState([]);
+    let [clickState, setClickState] = useState([]);
 
     function onTodoItemClick (id) {
-        // add id of clicked todo to the state
+      setClickState = id;
+          // add id of clicked todo to the state
+          console.log("setClickState: " + setClickState)
+          console.log("clickState: " + clickState)
+
     }
+
 
   return (
    <>
    <Header />
     {/*{todos.map((item) => <TodoList key={item.id} {...item} />)}*/}
        {/*add done class to listItem if id of todo matches any id in clickState*/}
-    {todos.map((item) => <TodoList className={} id={item.id} label={item.label} createdAt={item.createdAt} onClick={() => onTodoItemClick(item.id)} />)}
+    {todos.map((item) => <TodoList  key={item.id} id={item.id} label={item.label} createdAt={item.createdAt} onSelect={() => onTodoItemClick([item.id])} />)}
        {/*alternative way of key setting */}
        {/*{todos.map((item, index) => <TodoList key={index} {...item} />)}*/}
+       
+
    </>
   );
 }
