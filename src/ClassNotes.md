@@ -1,4 +1,4 @@
- Recourses
+/* Recourses
      React docs -> official react doc
      Stackoverflow -> community
      MDN->JS
@@ -73,6 +73,6 @@
        ### Class 3
        - explain children props
            - refactor useState
-           - reusable components - Header
+           - reusable components - Header */
 
 
