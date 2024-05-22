@@ -27,49 +27,49 @@
 
 ### Refactor state handling
 
-function onTodoItemClick (id) {
-    let newDoneState = [...doneTasks];
-
-    // Scenario #1 - do not duplicated done task ids
-    // Steps:
-    // - check if the id already exists in done task
-
-    // let isDone = false;
-    // for(let i = 0; i < newDoneState.length; i++) {
-    //     if(newDoneState[i] === id) {
-    //         isDone = true;
-    //     }
-    // }
-    // const isDone = newDoneState.includes(id);
-
-    // - if included skip adding current task id
-    // if(isDone) {
-    //     console.log('Already done - ', id);
-    //     return;
-    // }
-
-    // - if not add the current task id
-    // console.log('Not done - ', id);
-    //
-    // newDoneState.push(id);
-    //
-    // setDoneTasks(newDoneState);
-
-    // Scenario #2 - toggle done task on click
-    // check if task is done
-    const isDone = newDoneState.includes(id);
-
-    // if not add it to the list
-    if(!isDone) {
-        newDoneState.push(id);
+    function onTodoItemClick (id) { 
+        let newDoneState = [...doneTasks];
+    
+        // Scenario #1 - do not duplicated done task ids
+        // Steps:
+        // - check if the id already exists in done task
+    
+        // let isDone = false;
+        // for(let i = 0; i < newDoneState.length; i++) {
+        //     if(newDoneState[i] === id) {
+        //         isDone = true;
+        //     }
+        // }
+        // const isDone = newDoneState.includes(id);
+    
+        // - if included skip adding current task id
+        // if(isDone) {
+        //     console.log('Already done - ', id);
+        //     return;
+        // }
+    
+        // - if not add the current task id
+        // console.log('Not done - ', id);
+        //
+        // newDoneState.push(id);
+        //
+        // setDoneTasks(newDoneState);
+    
+        // Scenario #2 - toggle done task on click
+        // check if task is done
+        const isDone = newDoneState.includes(id);
+    
+        // if not add it to the list
+        if(!isDone) {
+            newDoneState.push(id);
+            setDoneTasks(newDoneState);
+            return;
+        }
+        // if done remove it form the list
+        newDoneState = newDoneState.filter((doneId) => doneId !== id);
+    
         setDoneTasks(newDoneState);
-        return;
     }
-    // if done remove it form the list
-    newDoneState = newDoneState.filter((doneId) => doneId !== id);
-
-    setDoneTasks(newDoneState);
-}
 
 ### Homework
 - add 'done' class to done todos
