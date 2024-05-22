@@ -1,6 +1,5 @@
 import './App.css';
 
-
 export default function TodoList ({ id, label, createdAt, className, onSelect}) {
     return (
     <div className='todoListContainer'>
@@ -14,4 +13,4 @@ export default function TodoList ({ id, label, createdAt, className, onSelect}) 
        </ul>
    </div>
    )
-   }
+}
