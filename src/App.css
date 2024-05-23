@@ -32,3 +32,9 @@
 .done {
     text-decoration: line-through rgba(246, 12, 12, 0.936);
 }
+
+#to-do-item {
+    display: flex;
+    justify-content: space-around;
+}
+

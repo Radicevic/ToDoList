@@ -9,26 +9,30 @@ function App() {
     const [doneTasks, setDoneTasks] = useState([]);
 
     function onTodoItemClick (id) {
-        let newDoneState = [...doneTasks];
+      let newDoneState = [...doneTasks];
 
-        const isDone = newDoneState.includes(id);
+      const isDone = newDoneState.includes(id);
 
-        if(!isDone) {
-            newDoneState.push(id);
-            setDoneTasks(newDoneState);
-            return;
-        }
+      if(!isDone){
+       newDoneState.push(id);
+       setDoneTasks(newDoneState);
+       return;
+      }
+ 
+      newDoneState = newDoneState.filter((doneId) => doneId !== id);
+ 
+      setDoneTasks(newDoneState)
+}
 
-        newDoneState = newDoneState.filter((doneId) => doneId !== id);
+    console.log(doneTasks)
 
-        setDoneTasks(newDoneState);
-    }
 
   return (
-      <>
-       <Header />
-       {todos.map((item) => <TodoList  key={item.id} id={item.id} label={item.label} createdAt={item.createdAt} onSelect={() => onTodoItemClick(item.id)} />)}
-      </>
+   <>
+   <Header />
+    {/*todos.map((item) => <TodoList className={} id={item.id} label={item.label} createdAt={item.createdAt} onClick={() => onTodoItemClick(item.id)} />)*/}
+    {todos.map((item) => <TodoList isIncludes={doneTasks.includes(item.id)}  key={item.id} id={item.id} label={item.label} createdAt={item.createdAt} onSelect={() => onTodoItemClick(item.id)} />)}      
+   </>
   );
 }
 

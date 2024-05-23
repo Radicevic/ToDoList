@@ -1,5 +1,6 @@
-export default function Header () {
+export default function Header ({title}) {
+    
     return (
-    <h1 className='title'>MY TODO LIST</h1>
+    <h1 className='title'>{title = "MY TODO LIST"}</h1>
 )    
 }
