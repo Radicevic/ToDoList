@@ -30,9 +30,9 @@
     function onTodoItemClick (id) { 
         let newDoneState = [...doneTasks];
     
-        // Scenario #1 - do not duplicated done task ids
+        // Scenario #1 - do not duplicate done task ids
         // Steps:
-        // - check if the id already exists in done task
+        // - check if the id already exists in the done task
     
         // let isDone = false;
         // for(let i = 0; i < newDoneState.length; i++) {
@@ -42,7 +42,7 @@
         // }
         // const isDone = newDoneState.includes(id);
     
-        // - if included skip adding current task id
+        // - if included skip adding the current task id
         // if(isDone) {
         //     console.log('Already done - ', id);
         //     return;
@@ -56,7 +56,7 @@
         // setDoneTasks(newDoneState);
     
         // Scenario #2 - toggle done task on click
-        // check if task is done
+        // check if a task is done
         const isDone = newDoneState.includes(id);
     
         // if not add it to the list
@@ -65,7 +65,7 @@
             setDoneTasks(newDoneState);
             return;
         }
-        // if done remove it form the list
+        // if done remove it from the list
         newDoneState = newDoneState.filter((doneId) => doneId !== id);
     
         setDoneTasks(newDoneState);
@@ -79,4 +79,12 @@
 - refactor Header component 
   - to receive the title as a 'title' props
   - use title props to display title text received from props
-  - if there is no props propagated use 'MY TO DO LIST' as default title
+  - if there are no props propagated use 'MY TO DO LIST' as the default title
+- fetch() method
+  - investigate JS fetch method
+  - use dummy json api to fetch todos using fetch method - https://dummyjson.com/docs
+  - console.log fetch todos data
+- invetigate useEffect
+  - readr offical react docs on component lifecycle
+  - read official react docs on useFffect topic
+  - console.log welcome message when todo list app is mounted
