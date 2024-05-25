@@ -14,7 +14,7 @@
 }
 
 .list {
-    padding: 0px;
+    padding: 0;
     width: 100%;
     margin: 0;
     background-color: gray;
@@ -22,10 +22,11 @@
 }
 
 .listItem {
-    font-size: 20px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    font-size: 20px;
     padding: 0 30px 0 30px;
+    justify-content: space-between;
 }
 
 

@@ -1,4 +1,4 @@
-#Class 3
+# Class 3
 
 ## Key Points
 - Destructuring
@@ -84,7 +84,7 @@
   - investigate JS fetch method
   - use dummy json api to fetch todos using fetch method - https://dummyjson.com/docs
   - console.log fetch todos data
-- invetigate useEffect
-  - readr offical react docs on component lifecycle
-  - read official react docs on useFffect topic
+- investigate useEffect
+  - readr official react docs on component lifecycle
+  - read official react docs on useEffect topic
   - console.log welcome message when todo list app is mounted
