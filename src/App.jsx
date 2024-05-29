@@ -33,6 +33,7 @@ function App() {
         newDoneState = newDoneState.filter((doneId) => doneId !== id);
 
         setDoneTasks(newDoneState)
+        console.log(doneTasks)
     }
 
     useEffect( () => {
@@ -44,6 +45,7 @@ function App() {
 
         getTodos();
     }, []);
+
 
   return (
    <>
