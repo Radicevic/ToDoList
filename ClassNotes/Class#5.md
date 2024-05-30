@@ -1,6 +1,8 @@
 # Class 5
 
 ## Key Points
+### Children in React
+  - everything that is wrapped with the component will be accessible as children prop
 ### Folder structure
   - use pages and components folders
   - granulate CSS code to belonging components
@@ -30,9 +32,9 @@
   - give descriptive and meaningful names to the components
   - write clean code
   - be consistent in coding style
-### Widely used coding style
+###### Widely used coding style
 - https://airbnb.io/javascript/react/
-#### Good Reads
+###### Good Reads
 - https://dev.to/abrahamlawson/react-style-guide-24pp
 - https://www.freecodecamp.org/news/best-practices-for-react/
 
