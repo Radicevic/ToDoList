@@ -1,0 +1,15 @@
+.list-item {
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.todo-text {
+    gap: 30px;
+    display: flex;
+}
+
+.done {
+    text-decoration: line-through rgb(208, 80, 64);
+}

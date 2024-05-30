@@ -1,6 +1,7 @@
 # Class 4
 
 ## Key Points
+- fetch
 - Promise
 - Async await
 - Lifecycle
