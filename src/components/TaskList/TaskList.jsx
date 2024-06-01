@@ -18,9 +18,14 @@ export function TaskList() {
         changedTodo.completed = !changedTodo.completed;
 
         newDoneState[clickedTodoIndex] = changedTodo;
-
+        
         setTodoList(newDoneState);
     }
+
+    function deleteTask (id){
+        const newTaskState = todoList.filter((task) => task.id !== id);
+        setTodoList(newTaskState);
+        }
 
     useEffect( () => {
         async function getTodos() {
@@ -34,7 +39,7 @@ export function TaskList() {
 
     return (
         <div className="task-list">
-          {todoList.map((item) => <Task done={item.completed} key={item.id} id={item.id} label={item.todo} onSelect={() => onTodoItemClick(item.id)} />)}
+          {todoList.map((item) => <Task done={item.completed} key={item.id} id={item.id} label={item.todo} onToggle={() => onTodoItemClick(item.id)} onDelete={() => deleteTask(item.id)}/>)}
         </div>
     );
 }
