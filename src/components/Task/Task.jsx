@@ -9,7 +9,7 @@ export function Task ({onDelete, done, id, label, onToggle}) {
                 <span>{id}</span>
                 <span>{label}</span>
             </div>
-            <div className='todo-actions'><Button onClickDeleteTask={onDelete} title={"Delete"}/></div>
+            <div className='todo-actions'><Button onClick={onDelete} title={"Delete"}/></div>
         </div>
     )
 }

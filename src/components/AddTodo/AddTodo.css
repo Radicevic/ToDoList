@@ -1,0 +1,11 @@
+.addToDoContainer {
+    gap: 20px;
+    display: flex;
+    align-items: center;
+
+    input {
+        padding: 3px;
+        outline: none;
+        height: fit-content;
+    }
+}

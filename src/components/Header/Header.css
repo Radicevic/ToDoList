@@ -1,8 +1,14 @@
-.title {
+.header {
     margin: 0;
     width: 100%;
-    color: white;
+    display: flex;
     padding: 10px;
     text-align: center;
+    align-items: center;
     background-color: #d05040;
+    justify-content: space-between;
+}
+
+.title {
+    color: white;
 }

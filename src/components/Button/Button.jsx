@@ -1,7 +1,7 @@
 import "./Button.css"
 
-export function Button ({onClickDeleteTask, title}){
+export function Button ({onClick, title}){
     return (
-        <button className="deleteButton" onClick={onClickDeleteTask}>{title}</button>
+        <button className="deleteButton" onClick={onClick}>{title}</button>
     )
 }

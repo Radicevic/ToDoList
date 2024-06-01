@@ -1,0 +1,2 @@
+- reflect api changes on the UI after API requests
+- move fetch method calls to todo service - refactoring

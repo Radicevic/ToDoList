@@ -39,8 +39,7 @@
 - https://www.freecodecamp.org/news/best-practices-for-react/
 
 
-### Homework 
-- create Footer component using Header component as boilerplate
+### Homework
 - create reusable Button component
   - label
   - onClick
