@@ -7,6 +7,7 @@
   - PUT - replaces the resource
   - DELETE - removes the resource 
   - PATCH - updates part of the resource
+  - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 - POST request - Create todo on API
   - pass params object to the fetch method
   - send new todo as body param
