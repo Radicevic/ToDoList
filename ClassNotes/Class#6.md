@@ -2,7 +2,14 @@
 
 ## Key Points - CRUD
 - HTTP Request methods
+  - GET - get resources
+  - POST - create resource
+  - PUT - replaces the resource
+  - DELETE - removes the resource 
+  - PATCH - updates part of the resource
 - POST request - Create todo on API
+  - pass params object to the fetch method
+  - send new todo as body param
 
 ## Homework - https://dummyjson.com/docs
 - create Footer component using Header component as boilerplate
