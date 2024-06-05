@@ -1,7 +1,7 @@
-const url = 'https://dummyjson.com/todos/user/13';
+const url = "https://dummyjson.com/todos/user/13";
 
-export async function fetchTodoList () {
-    const res = await fetch(url);
+export async function fetchTodoList() {
+  const res = await fetch(url);
 
-    return await res.json();
+  return await res.json();
 }

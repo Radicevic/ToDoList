@@ -1,10 +1,12 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-import {Button} from "../Button/Button";
+import { Button } from "../Button/Button";
+import { CheckBox } from "../CheckBox/CheckBox";
 
 import './AddTodo.css';
 
-const loggedUserId = 13;
+const loggedUserId = 3;
+const status = "Task status";
 
 export function AddTodo(props) {
     const [todoTitle, setTodoTitle] = useState('');
@@ -14,7 +16,7 @@ export function AddTodo(props) {
         // read title from state
         const title = todoTitle;
         // prepare request payload
-        const newTodo = { todo: title, completed: false, userId: loggedUserId };
+        const newTodo = { todo: title, completed: completed, userId: loggedUserId };
         // send POST request
         fetch('https://dummyjson.com/todos/add', {
             method: 'POST',
@@ -30,13 +32,19 @@ export function AddTodo(props) {
         setTodoTitle(e.target.value);
     }
 
+    function completedChange (e){
+        console.log(e.currentTarget.checked)
+        setCompleted(e.currentTarget.checked);
+    }
+
     useEffect(() => {
         console.log('todo title: ', todoTitle);
-    }, [todoTitle]);
+        console.log(completed)
+    }, [todoTitle, completed]);
 
     return <div className="addToDoContainer">
         <input onChange={onTodoTitleChange} value={todoTitle} />
-        {/*add checkbox to check if todo we are creating is already done */}
+        <CheckBox change={completedChange} value={completed} title={status}/>
         <Button title='Add' onClick={onAdd} />
     </div>
 }
