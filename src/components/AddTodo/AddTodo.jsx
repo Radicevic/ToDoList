@@ -9,26 +9,37 @@ const loggedUserId = 3;
 const status = "Task status";
 
 export function AddTodo(props) {
+    const [error, setError] = useState('');
     const [todoTitle, setTodoTitle] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [completed, setCompleted] = useState(false);
 
     function onAdd () {
-        // read title from state
-        const title = todoTitle;
-        // prepare request payload
-        const newTodo = { todo: title, completed: completed, userId: loggedUserId };
-        // send POST request
+        setIsLoading(true);
+        setError('');
+
+        const newTodo = { todo: todoTitle, completed: completed, userId: loggedUserId };
+
         fetch('https://dummyjson.com/todos/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newTodo)
         })
-            .then(res => res.json())
-            .then((createdTodo) => console.log('Created: ', createdTodo));
-
+            .then(res => {
+                return res.json();
+            })
+            .then((created) => {
+                setTodoTitle('');
+                console.log('created: ',created);
+            }).catch((err) => {
+                setError(err.message);
+        }).finally(() => {
+            setIsLoading(false);
+        });
     }
 
     function onTodoTitleChange (e) {
+        setError('');
         setTodoTitle(e.target.value);
     }
 
@@ -42,9 +53,13 @@ export function AddTodo(props) {
         console.log(completed)
     }, [todoTitle, completed]);
 
-    return <div className="addToDoContainer">
-        <input onChange={onTodoTitleChange} value={todoTitle} />
-        <CheckBox change={completedChange} value={completed} title={status}/>
-        <Button title='Add' onClick={onAdd} />
+    return <div>
+        <div className="addToDoContainer">
+            <input onChange={onTodoTitleChange} value={todoTitle}/>
+            <CheckBox change={completedChange} value={completed} title={status}/>
+            <Button title='Add' onClick={onAdd}/>
+        </div>
+        {isLoading ? <p>Loading...</p> : <></>}
+        {!isLoading && error? <p>{error}</p> : <></>}
     </div>
 }

@@ -7,7 +7,7 @@ import './TaskList.css';
 
 export function TaskList() {
     const [todoList, setTodoList] = useState([]);
-   
+
 
     function onTodoItemClick (id) {
         let newDoneState = [...todoList];
@@ -19,11 +19,11 @@ export function TaskList() {
         changedTodo.completed = !changedTodo.completed;
 
         newDoneState[clickedTodoIndex] = changedTodo;
-        
+
         setTodoList(newDoneState);
 
         const payload = {
-            completed: changedTodo.completed, 
+            completed: changedTodo.completed,
             todo: changedTodo.todo + " completed"
           };
 
@@ -35,7 +35,7 @@ export function TaskList() {
         })
        .then(res => res.json())
        .then((res) => console.log("Updated: ", res));
-      
+
 
 
 
@@ -43,14 +43,14 @@ export function TaskList() {
 
     function deleteTask (id){
         const newTaskState = todoList.filter((task) => task.id !== id);
-        setTodoList(newTaskState);
+
         console.log(id)
 
         fetch('https://dummyjson.com/todos/'  + id, {
             method: 'DELETE',
         })
         .then(res => res.json())
-        .then(console.log);
+        .then(() => setTodoList(newTaskState)).catch((err) => console.log(err.message));
         }
 
     useEffect( () => {
