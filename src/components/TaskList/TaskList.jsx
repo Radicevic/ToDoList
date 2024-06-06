@@ -24,21 +24,16 @@ export function TaskList() {
 
         const payload = {
             completed: changedTodo.completed,
-            todo: changedTodo.todo + " completed"
           };
 
          /* updating completed status of todo with id 1 */
-    fetch('https://dummyjson.com/todos/' + id, {
-        method: 'PUT', /* or PATCH */
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( payload )
+        fetch('https://dummyjson.com/todos/' + id, {
+            method: 'PUT', /* or PATCH */
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
         })
-       .then(res => res.json())
-       .then((res) => console.log("Updated: ", res));
-
-
-
-
+            .then(res => res.json())
+            .then((res) => console.log("Updated: ", res));
     }
 
     function deleteTask (id){

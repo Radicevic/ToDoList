@@ -30,7 +30,6 @@ export function AddTodo(props) {
             })
             .then((created) => {
                 setTodoTitle('');
-                console.log('created: ',created);
             }).catch((err) => {
                 setError(err.message);
         }).finally(() => {
@@ -47,11 +46,6 @@ export function AddTodo(props) {
         console.log(e.currentTarget.checked)
         setCompleted(e.currentTarget.checked);
     }
-
-    useEffect(() => {
-        console.log('todo title: ', todoTitle);
-        console.log(completed)
-    }, [todoTitle, completed]);
 
     return <div>
         <div className="addToDoContainer">
