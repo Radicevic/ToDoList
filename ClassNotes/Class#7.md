@@ -13,7 +13,7 @@
 - create Footer component using Header component as boilerplate
 - add loading and error state to delete feature
 - move state update after todo item click in then(when request is resolved)
-Additional:
+##### Additional:
 - write down a concept on how to update taskList state when todo is created 
 
 
