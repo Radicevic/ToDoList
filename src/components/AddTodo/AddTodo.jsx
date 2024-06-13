@@ -29,13 +29,20 @@ export function AddTodo(props) {
                 return res.json();
             })
             .then((created) => {
+                console.log("Crated: ", created);
                 setTodoTitle('');
             }).catch((err) => {
+                console.log("ERR: ", err);
                 setError(err.message);
         }).finally(() => {
             setIsLoading(false);
         });
+      
     }
+
+    useEffect (() => {
+
+    }, [todoTitle])
 
     function onTodoTitleChange (e) {
         setError('');
@@ -54,6 +61,6 @@ export function AddTodo(props) {
             <Button title='Add' onClick={onAdd}/>
         </div>
         {isLoading ? <p>Loading...</p> : <></>}
-        {!isLoading && error? <p>{error}</p> : <></>}
+        {!isLoading && error ? <p>{error}</p> : <></>}
     </div>
 }

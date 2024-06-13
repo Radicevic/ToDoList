@@ -7,9 +7,12 @@ import './TaskList.css';
 
 export function TaskList() {
     const [todoList, setTodoList] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ error, setError ] = useState ('');
 
 
     function onTodoItemClick (id) {
+        setIsLoading(true)
         let newDoneState = [...todoList];
 
         const clickedTodoIndex = newDoneState.findIndex((todo) => todo.id === id);
@@ -19,10 +22,8 @@ export function TaskList() {
         changedTodo.completed = !changedTodo.completed;
 
         newDoneState[clickedTodoIndex] = changedTodo;
-
-        setTodoList(newDoneState);
-
-        const payload = {
+        
+     const payload = {
             completed: changedTodo.completed,
           };
 
@@ -32,20 +33,48 @@ export function TaskList() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
         })
-            .then(res => res.json())
-            .then((res) => console.log("Updated: ", res));
+            .then(res => {
+                //throw new Error('Something went wrong!');
+                return res.json();
+            })
+            .then ((response) => {
+                newDoneState[clickedTodoIndex] = response.completed;
+                setTodoList(newDoneState); //Domaci
+                console.log("Update ", response.completed)
+
+            })
+            .catch((err) => {
+                setError(err.message)
+            })
+            .finally (() => {
+                setIsLoading(false)
+            })
     }
 
     function deleteTask (id){
-        const newTaskState = todoList.filter((task) => task.id !== id);
+        setIsLoading(true)
+        console.log("DELETE LOADING", isLoading)
 
-        console.log(id)
 
         fetch('https://dummyjson.com/todos/'  + id, {
             method: 'DELETE',
         })
-        .then(res => res.json())
-        .then(() => setTodoList(newTaskState)).catch((err) => console.log(err.message));
+        .then(res => {
+            throw new Error ("Something went wrong!")
+           // return res.json();
+
+        })
+        .then((response) => {
+            const newTaskState = todoList.filter((task) => task.id !== response.id);
+            setTodoList(newTaskState);
+            
+        console.log("Response from delete: ", response)
+    
+    })
+        // Izvuci iz Responsa id i setovati state filtriranjem 
+       // .catch((err) => console.log(err.message))
+        .catch((err) => setError(err.message))
+        .finally(()=>setIsLoading(false))
         }
 
     useEffect( () => {
@@ -61,7 +90,8 @@ export function TaskList() {
 
     return (
         <div className="task-list">
-          {todoList.map((item) => <Task done={item.completed} key={item.id} id={item.id} label={item.todo} onToggle={() => onTodoItemClick(item.id)} onDelete={() => deleteTask(item.id)}/>)}
+          {todoList.map((item) => <Task error={error} isLoading={isLoading} done={item.completed} key={item.id} id={item.id} label={item.todo} onToggle={() => onTodoItemClick(item.id)} onDelete={() => deleteTask(item.id)}/>)}
+          
         </div>
     );
 }
