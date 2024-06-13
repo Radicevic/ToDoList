@@ -6,13 +6,10 @@ import { fetchTodoList } from "../../services/TodoService";
 import './TaskList.css';
 
 export function TaskList() {
-    const [todoList, setTodoList] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState ('');
-
+    const [todoList, setTodoList] = useState([]);
 
     function onTodoItemClick (id) {
-        setIsLoading(true)
         let newDoneState = [...todoList];
 
         const clickedTodoIndex = newDoneState.findIndex((todo) => todo.id === id);
@@ -22,11 +19,12 @@ export function TaskList() {
         changedTodo.completed = !changedTodo.completed;
 
         newDoneState[clickedTodoIndex] = changedTodo;
-        
+
      const payload = {
             completed: changedTodo.completed,
           };
 
+        // rewrite this to async/await
          /* updating completed status of todo with id 1 */
         fetch('https://dummyjson.com/todos/' + id, {
             method: 'PUT', /* or PATCH */
@@ -46,36 +44,30 @@ export function TaskList() {
             .catch((err) => {
                 setError(err.message)
             })
-            .finally (() => {
-                setIsLoading(false)
-            })
     }
 
-    function deleteTask (id){
-        setIsLoading(true)
-        console.log("DELETE LOADING", isLoading)
+    async function deleteTask (id){
+        // Promise syntax
+        // return fetch('https://dummyjson.com/todos/'  + id, {
+        //     method: 'DELETE',
+        // })
+        // .then(res => {
+        //    return res.json();
+        // })
+        // .then((response) => {
+        //     const newTaskState = todoList.filter((task) => task.id !== response.id);
+        //     setTodoList(newTaskState);
+        // });
 
+        // Async/await syntax
+        const response = await fetch('https://dummyjson.com/todos/'  + id, { method: 'DELETE' });
 
-        fetch('https://dummyjson.com/todos/'  + id, {
-            method: 'DELETE',
-        })
-        .then(res => {
-            throw new Error ("Something went wrong!")
-           // return res.json();
+        const data = await response.json();
 
-        })
-        .then((response) => {
-            const newTaskState = todoList.filter((task) => task.id !== response.id);
-            setTodoList(newTaskState);
-            
-        console.log("Response from delete: ", response)
-    
-    })
-        // Izvuci iz Responsa id i setovati state filtriranjem 
-       // .catch((err) => console.log(err.message))
-        .catch((err) => setError(err.message))
-        .finally(()=>setIsLoading(false))
-        }
+        const newTaskState = todoList.filter((task) => task.id !== data.id);
+
+        setTodoList(newTaskState);
+    }
 
     useEffect( () => {
         async function getTodos() {
@@ -90,8 +82,15 @@ export function TaskList() {
 
     return (
         <div className="task-list">
-          {todoList.map((item) => <Task error={error} isLoading={isLoading} done={item.completed} key={item.id} id={item.id} label={item.todo} onToggle={() => onTodoItemClick(item.id)} onDelete={() => deleteTask(item.id)}/>)}
-          
+          {
+              todoList.map((item) =>
+              <Task
+                  todo={item}
+                  key={item.id}
+                  onDelete={deleteTask}
+                  onToggle={onTodoItemClick}
+              />)
+          }
         </div>
     );
 }
