@@ -14,7 +14,36 @@ export function AddTodo(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [completed, setCompleted] = useState(false);
 
-    function onAdd () {
+    async function onAdd () {
+       
+        const newTodo = { todo: todoTitle, completed: completed, userId: loggedUserId };
+
+        try {
+            setIsLoading(true);
+            setError('');
+
+            const response = await fetch('https://dummyjson.com/todos/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newTodo)
+            })
+    
+            const data = await response.json();
+
+            // throw new Error ("Something went wrong!")
+            
+            setTodoTitle(" ")
+            console.log("Crated: ", data);
+
+           
+        } catch (e) {
+            setError(e.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    /*function onAdd () {
         setIsLoading(true);
         setError('');
 
@@ -39,6 +68,8 @@ export function AddTodo(props) {
         });
       
     }
+        */
+
 
     useEffect (() => {
 

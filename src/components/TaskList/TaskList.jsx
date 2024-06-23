@@ -6,68 +6,30 @@ import { fetchTodoList } from "../../services/TodoService";
 import './TaskList.css';
 
 export function TaskList() {
-    const [ error, setError ] = useState ('');
     const [todoList, setTodoList] = useState([]);
 
-    function onTodoItemClick (id) {
-        let newDoneState = [...todoList];
+    
+    async function updateTask (updatedTask){
+       
+        const clickedTodoIndex = todoList.findIndex((todo) => todo.id === updatedTask.id);
 
-        const clickedTodoIndex = newDoneState.findIndex((todo) => todo.id === id);
+        
+        const newState = [...todoList]; //shallow copy
 
-        const changedTodo = {...newDoneState[clickedTodoIndex]};
+        //newState[clickedTodoIndex] = updatedTask;
 
-        changedTodo.completed = !changedTodo.completed;
+        newState.splice(clickedTodoIndex, 1, updatedTask);
 
-        newDoneState[clickedTodoIndex] = changedTodo;
-
-     const payload = {
-            completed: changedTodo.completed,
-          };
-
-        // rewrite this to async/await
-         /* updating completed status of todo with id 1 */
-        fetch('https://dummyjson.com/todos/' + id, {
-            method: 'PUT', /* or PATCH */
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-        })
-            .then(res => {
-                //throw new Error('Something went wrong!');
-                return res.json();
-            })
-            .then ((response) => {
-                newDoneState[clickedTodoIndex] = response.completed;
-                setTodoList(newDoneState); //Domaci
-                console.log("Update ", response.completed)
-
-            })
-            .catch((err) => {
-                setError(err.message)
-            })
+        setTodoList(newState); 
     }
 
-    async function deleteTask (id){
-        // Promise syntax
-        // return fetch('https://dummyjson.com/todos/'  + id, {
-        //     method: 'DELETE',
-        // })
-        // .then(res => {
-        //    return res.json();
-        // })
-        // .then((response) => {
-        //     const newTaskState = todoList.filter((task) => task.id !== response.id);
-        //     setTodoList(newTaskState);
-        // });
-
-        // Async/await syntax
-        const response = await fetch('https://dummyjson.com/todos/'  + id, { method: 'DELETE' });
-
-        const data = await response.json();
-
-        const newTaskState = todoList.filter((task) => task.id !== data.id);
+    function deleteTask (id){
+      
+        const newTaskState = todoList.filter((task) => task.id !== id);
 
         setTodoList(newTaskState);
     }
+
 
     useEffect( () => {
         async function getTodos() {
@@ -78,7 +40,7 @@ export function TaskList() {
 
         getTodos();
     }, []);
-
+console.log(todoList)
 
     return (
         <div className="task-list">
@@ -88,7 +50,7 @@ export function TaskList() {
                   todo={item}
                   key={item.id}
                   onDelete={deleteTask}
-                  onToggle={onTodoItemClick}
+                  onToggle={updateTask}
               />)
           }
         </div>

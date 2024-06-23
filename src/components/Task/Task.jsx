@@ -4,7 +4,7 @@ import './Task.css'
 import {useState} from "react";
 
 export function Task ({ onDelete, todo, onToggle }) {
-    const { done, id, todo: label } = todo;
+    const { completed, id, todo: label } = todo;
 
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,10 +16,40 @@ export function Task ({ onDelete, todo, onToggle }) {
         //     .finally(() => setIsLoading(false));
 
         //Async/await syntax
+
         try {
             setIsLoading(true);
 
-            await onDelete(id); // this has to be promise
+            const response = await fetch('https://dummyjson.com/todos/'  + id, { method: 'DELETE' });
+
+            const data = await response.json();
+
+            onDelete(data.id); // this has to be promise
+        } catch (e) {
+            setError(e.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function handleUpdate(){
+        try {
+            setIsLoading(true);
+
+            const payload = { 
+                completed: !completed
+            }
+
+            const response = await fetch('https://dummyjson.com/todos/' + id, {
+                method: 'PUT', /* or PATCH */
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+    
+            const data = await response.json();
+            console.log(data)
+
+            onToggle(data); // this has to be promise
         } catch (e) {
             setError(e.message);
         } finally {
@@ -28,8 +58,8 @@ export function Task ({ onDelete, todo, onToggle }) {
     }
 
     return (
-        <div className={`list-item ${done ? "done" : ''}`}>
-            <div onClick={() => onToggle(id)} className='todo-text'>
+        <div className={`list-item ${completed ? "done" : ''}`}>
+            <div onClick={handleUpdate} className='todo-text'>
                 <span>{id}</span>
                 <span>{label}</span>
             </div>
