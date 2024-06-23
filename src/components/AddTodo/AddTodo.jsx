@@ -8,14 +8,14 @@ import './AddTodo.css';
 const loggedUserId = 3;
 const status = "Task status";
 
-export function AddTodo(props) {
+export function AddTodo({ onCreated }) {
     const [error, setError] = useState('');
     const [todoTitle, setTodoTitle] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [completed, setCompleted] = useState(false);
 
     async function onAdd () {
-       
+
         const newTodo = { todo: todoTitle, completed: completed, userId: loggedUserId };
 
         try {
@@ -27,15 +27,13 @@ export function AddTodo(props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTodo)
             })
-    
+
             const data = await response.json();
 
             // throw new Error ("Something went wrong!")
-            
-            setTodoTitle(" ")
-            console.log("Crated: ", data);
 
-           
+            setTodoTitle(" ")
+            onCreated(data);
         } catch (e) {
             setError(e.message);
         } finally {
@@ -66,7 +64,7 @@ export function AddTodo(props) {
         }).finally(() => {
             setIsLoading(false);
         });
-      
+
     }
         */
 

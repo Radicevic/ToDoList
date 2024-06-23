@@ -36,7 +36,7 @@ export function Task ({ onDelete, todo, onToggle }) {
         try {
             setIsLoading(true);
 
-            const payload = { 
+            const payload = {
                 completed: !completed
             }
 
@@ -45,7 +45,7 @@ export function Task ({ onDelete, todo, onToggle }) {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
             });
-    
+
             const data = await response.json();
             console.log(data)
 
