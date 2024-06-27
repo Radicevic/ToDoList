@@ -12,7 +12,7 @@ export function Task ({ onDelete, todo, onEdit }) {
 
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    
+
     async function handleDelete(){
         // Promise syntax
         // onDelete(id)
@@ -30,7 +30,7 @@ export function Task ({ onDelete, todo, onEdit }) {
 
             const response = await axiosInstance.delete('/todos/' + id);
 
-            onDelete(response.data.id); 
+            onDelete(response.data.id);
 
         } catch (e) {
             setError(e.message);
@@ -44,8 +44,11 @@ export function Task ({ onDelete, todo, onEdit }) {
             setIsLoading(true);
 
             const payload = {
+                ...todo,
                 completed: !completed
-            }
+            };
+
+            delete payload.id;
 
             const response = await fetch('https://dummyjson.com/todos/' + id, {
                 method: 'PUT', /* or PATCH */
@@ -66,7 +69,12 @@ export function Task ({ onDelete, todo, onEdit }) {
 
     async function handleEdit(){
 
-        const editedTodoTask = { todo: todoEdit}
+        const editedTodoTask = {
+            ...todo,
+            todo: todoEdit
+        };
+
+        delete editedTodoTask.id;
 
         try {
             //setIsLoading(true);
@@ -99,7 +107,7 @@ export function Task ({ onDelete, todo, onEdit }) {
     function onTodoTaskEdit (e){
        setTodoEdit(e.target.value)
     }
-    
+
     return (
         <div className={`list-item ${completed ? "done" : ''}`}>
             <div onClick={handleUpdate} className='todo-text'>
@@ -111,12 +119,12 @@ export function Task ({ onDelete, todo, onEdit }) {
             {!isLoading && error ? <p>{error}</p> : <></>}
 
             <div className='todo-actions'>
-                  <EditTodo onChange={onTodoTaskEdit} onEdit={handleEdit} value={todoEdit} titleBefore={"Edit"} titleAfter={"Ok"} />    
+                  <EditTodo onChange={onTodoTaskEdit} onEdit={handleEdit} value={todoEdit} titleBefore={"Edit"} titleAfter={"Ok"} />
                <div>
                   <Button onClick={handleDelete} title={"Delete"}/>
                </div>
             </div>
-            
+
         </div>
     )
 }
