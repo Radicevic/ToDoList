@@ -1,10 +1,14 @@
 # Class 12
 
 ## Key Points
-- create dedicated API service
-- use axios instead of fetch method
-- consider using singleton axios instance in the project
+- walk through homework
+  - basic axios usage
+  - controlled component
 
 ## Homework
-- try to use axios to send API requests - real project
-- ... - learning project
+- create uncontrolled EditTodo
+  - component should handle input state => stare value and setState function
+  - component should send update request to the API
+  - props: 
+    - onEdit => this function should only update taskList with the API response
+    - value => this is initial input state value
