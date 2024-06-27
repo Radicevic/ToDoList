@@ -1,5 +1,3 @@
-import {AddTodo} from "../AddTodo/AddTodo";
-
 import './Header.css';
 
 export function Header ({ title }) {

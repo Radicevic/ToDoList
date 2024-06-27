@@ -13,3 +13,8 @@
 .done {
     text-decoration: line-through rgb(208, 80, 64);
 }
+
+.todo-actions{
+    display: flex;
+    flex-direction: row;
+}

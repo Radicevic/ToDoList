@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "../Button/Button";
 import { CheckBox } from "../CheckBox/CheckBox";
+import axiosInstance from "../../services/axiosIstance";
 
 import './AddTodo.css';
 
@@ -22,18 +23,12 @@ export function AddTodo({ onCreated }) {
             setIsLoading(true);
             setError('');
 
-            const response = await fetch('https://dummyjson.com/todos/add', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newTodo)
-            })
-
-            const data = await response.json();
+            const response = await axiosInstance.post('/todos/add', newTodo)
 
             // throw new Error ("Something went wrong!")
 
             setTodoTitle(" ")
-            onCreated(data);
+            onCreated(response.data);
         } catch (e) {
             setError(e.message);
         } finally {
