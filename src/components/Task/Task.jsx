@@ -1,37 +1,20 @@
-import axiosInstance from '../../services/axiosIstance';
+import { axiosInstance } from '../../services/axiosIstance';
 import { Button } from '../Button/Button'
 import { EditTodo } from '../EditTodo/EditTodo';
 
 import './Task.css'
-import {useState} from "react";
+import { useState } from "react";
 
 export function Task ({ onDelete, todo, onEdit }) {
     const { completed, id, todo: label } = todo;
-    const [ todoEdit, setTodoEdit ] = useState (label);
-
-
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    async function handleDelete(){
-        // Promise syntax
-        // onDelete(id)
-        //     .catch((e) => setError(e.message))
-        //     .finally(() => setIsLoading(false));
-
-        //Async/await syntax
-
+    async function handleDelete() {
         try {
             setIsLoading(true);
-
-            //const response = await fetch('https://dummyjson.com/todos/'  + id, { method: 'DELETE' });
-            //const data = await response.json();
-            //onDelete(data.id); // this has to be promise
-
             const response = await axiosInstance.delete('/todos/' + id);
-
             onDelete(response.data.id);
-
         } catch (e) {
             setError(e.message);
         } finally {
@@ -39,10 +22,9 @@ export function Task ({ onDelete, todo, onEdit }) {
         }
     }
 
-    async function handleUpdate(){
+    async function handleUpdate() {
         try {
             setIsLoading(true);
-
             const payload = {
                 ...todo,
                 completed: !completed
@@ -51,15 +33,12 @@ export function Task ({ onDelete, todo, onEdit }) {
             delete payload.id;
 
             const response = await fetch('https://dummyjson.com/todos/' + id, {
-                method: 'PUT', /* or PATCH */
-                headers: {'Content-Type': 'application/json'},
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
-
             const data = await response.json();
-            console.log(data)
-
-            onEdit(data); // this has to be promise
+            onEdit(data);           
         } catch (e) {
             setError(e.message);
         } finally {
@@ -67,35 +46,18 @@ export function Task ({ onDelete, todo, onEdit }) {
         }
     }
 
-    async function handleEdit(){
-
-        const editedTodoTask = {
+    async function handleEdit(editedValue) {
+        
+        const editedTodoTask = { 
             ...todo,
-            todo: todoEdit
-        };
-
-        delete editedTodoTask.id;
+            todo: editedValue 
+        }
+            
+            delete editedTodoTask.id;
 
         try {
-            //setIsLoading(true);
-            //const response = await fetch('https://dummyjson.com/todos/' + id, {
-            //    method: 'PUT', /* or PATCH */
-            //    headers: {'Content-Type': 'application/json'},
-            //   body: JSON.stringify(editedTodoTask)
-            //});
-            //setTodoEdit("")
-            //const data = await response.json();
-            //console.log("Updated data ", data)
-            //onEdit(data);  // this has to be promise
-
-            setIsLoading (true);
-
+            setIsLoading(true);
             const response = await axiosInstance.put("/todos/" + id, editedTodoTask);
-
-            //setTodoEdit("");
-
-            console.log("Updated data ", response.data);
-
             onEdit(response.data);
         } catch (e) {
             setError(e.message);
@@ -104,9 +66,7 @@ export function Task ({ onDelete, todo, onEdit }) {
         }
     }
 
-    function onTodoTaskEdit (e){
-       setTodoEdit(e.target.value)
-    }
+    
 
     return (
         <div className={`list-item ${completed ? "done" : ''}`}>
@@ -115,16 +75,18 @@ export function Task ({ onDelete, todo, onEdit }) {
                 <span>{label}</span>
             </div>
             <p>{isLoading ? "Loading..." : ""}</p>
-
             {!isLoading && error ? <p>{error}</p> : <></>}
-
             <div className='todo-actions'>
-                  <EditTodo onChange={onTodoTaskEdit} onEdit={handleEdit} value={todoEdit} titleBefore={"Edit"} titleAfter={"Ok"} />
-               <div>
-                  <Button onClick={handleDelete} title={"Delete"}/>
-               </div>
+                <EditTodo
+                    label={label}
+                    onEdit={handleEdit}
+                    titleBefore={"Edit"}
+                    titleAfter={"Ok"}
+                />
+                <div>
+                    <Button onClick={handleDelete} title={"Delete"} />
+                </div>
             </div>
-
         </div>
     )
 }

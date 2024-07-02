@@ -1,25 +1,31 @@
-// EditTodo.jsx
 import React, { useState } from "react";
 import { Button } from "../Button/Button";
 import "./EditTodo.css";
 
-export function EditTodo ({ titleBefore, titleAfter, onChange, value, onEdit }) {
+export function EditTodo({ titleBefore, titleAfter, label, onEdit }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [todoEdit, setTodoEdit] = useState(label);
+
+    
 
     function handleEditClick() {
         setIsEditing(true);
     }
 
     function handleOkClick() {
-        setIsEditing(false); // Sakrij input polje kada se klikne na "OK" dugme
-        onEdit(); 
+        setIsEditing(false);
+        onEdit(todoEdit);
+    }
+
+    function onTodoTaskEdit(e) {
+        setTodoEdit(e.target.value);
     }
 
     return (
         <div>
             {isEditing ? (
                 <div>
-                    <input type="text" onChange={onChange} value={value}/> 
+                    <input type="text" onChange={onTodoTaskEdit} value={todoEdit}/> 
                     <Button onClick={handleOkClick} title={titleAfter} />
                 </div>
             ) : (

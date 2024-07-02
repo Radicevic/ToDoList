@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "../Button/Button";
 import { CheckBox } from "../CheckBox/CheckBox";
-import axiosInstance from "../../services/axiosIstance";
+import { axiosInstance } from "../../services/axiosIstance";
 
 import './AddTodo.css';
 

@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import { AddTodo } from "../AddTodo/AddTodo"; 
 
 import './TaskList.css';
-import axiosInstance from "../../services/axiosIstance";
+import { axiosInstance } from "../../services/axiosIstance";
 
 export function TaskList() {
 
