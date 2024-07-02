@@ -1,0 +1,2 @@
+- deep dive into constructors on JS
+- use axios instead of fetch method

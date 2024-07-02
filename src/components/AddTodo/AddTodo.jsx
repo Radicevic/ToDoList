@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import { Button } from "../Button/Button";
 import { CheckBox } from "../CheckBox/CheckBox";
-import { axiosInstance } from "../../services/axiosIstance";
+// import { axiosInstance } from "../../services/axiosIstance";
 
 import './AddTodo.css';
+import { TodoService } from "../../services/TodoService";
 
 const loggedUserId = 3;
 const status = "Task status";
@@ -16,19 +17,18 @@ export function AddTodo({ onCreated }) {
     const [completed, setCompleted] = useState(false);
 
     async function onAdd () {
-
         const newTodo = { todo: todoTitle, completed: completed, userId: loggedUserId };
 
         try {
             setIsLoading(true);
             setError('');
-
-            const response = await axiosInstance.post('/todos/add', newTodo)
+            const response = await TodoService.create(newTodo);
+            // const response = await axiosInstance.post('/todos/add', newTodo)
 
             // throw new Error ("Something went wrong!")
 
             setTodoTitle(" ")
-            onCreated(response.data);
+            onCreated(response);
         } catch (e) {
             setError(e.message);
         } finally {

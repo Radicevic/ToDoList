@@ -1,9 +1,11 @@
-import { axiosInstance } from '../../services/axiosIstance';
+import { useState } from "react";
+
 import { Button } from '../Button/Button'
 import { EditTodo } from '../EditTodo/EditTodo';
+// import {deleteTodo, updateTodo} from "../../services/TodoService";
+import { axiosInstance } from '../../services/axiosIstance';
 
 import './Task.css'
-import { useState } from "react";
 
 export function Task ({ onDelete, todo, onEdit }) {
     const { completed, id, todo: label } = todo;
@@ -13,8 +15,9 @@ export function Task ({ onDelete, todo, onEdit }) {
     async function handleDelete() {
         try {
             setIsLoading(true);
-            const response = await axiosInstance.delete('/todos/' + id);
-            onDelete(response.data.id);
+            const response = await deleteTodo(id);
+            console.log('DELTE RESPONSE: ', response)
+            onDelete(response.id);
         } catch (e) {
             setError(e.message);
         } finally {
@@ -32,13 +35,9 @@ export function Task ({ onDelete, todo, onEdit }) {
 
             delete payload.id;
 
-            const response = await fetch('https://dummyjson.com/todos/' + id, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
-            onEdit(data);           
+            const response = await updateTodo(id, payload);
+
+            onEdit(response);
         } catch (e) {
             setError(e.message);
         } finally {
@@ -47,12 +46,12 @@ export function Task ({ onDelete, todo, onEdit }) {
     }
 
     async function handleEdit(editedValue) {
-        
-        const editedTodoTask = { 
+
+        const editedTodoTask = {
             ...todo,
-            todo: editedValue 
+            todo: editedValue
         }
-            
+
             delete editedTodoTask.id;
 
         try {
@@ -66,7 +65,7 @@ export function Task ({ onDelete, todo, onEdit }) {
         }
     }
 
-    
+
 
     return (
         <div className={`list-item ${completed ? "done" : ''}`}>

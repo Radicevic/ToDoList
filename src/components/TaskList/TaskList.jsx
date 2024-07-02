@@ -1,10 +1,10 @@
 import { Task } from "../Task/Task";
 
 import {useEffect, useState} from "react";
-import { AddTodo } from "../AddTodo/AddTodo"; 
+import { AddTodo } from "../AddTodo/AddTodo";
+import { TodoService } from "../../services/TodoService";
 
 import './TaskList.css';
-import { axiosInstance } from "../../services/axiosIstance";
 
 export function TaskList() {
 
@@ -14,7 +14,6 @@ export function TaskList() {
     function updateTask (updatedTask){
 
         const clickedTodoIndex = todoList.findIndex((todo) => todo.id === updatedTask.id);
-
 
         const newState = [...todoList]; //shallow copy
 
@@ -44,15 +43,9 @@ export function TaskList() {
 
     useEffect( () => {
         async function getTodos() {
-            //const response = await fetchTodoList();
-            //console.log(response.todos)
-            //setTodoList(response.todos);
+            const response = await TodoService.getAll();
 
-            const response = await axiosInstance.get("/todos/user/13");
-
-            setTodoList(response.data.todos);
-            console.log(response.data)
-
+            setTodoList(response.todos);
         }
 
         getTodos();
