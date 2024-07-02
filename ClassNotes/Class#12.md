@@ -4,6 +4,7 @@
 - walk through homework
   - basic axios usage
   - controlled component
+  - explain UI fix for dummy API
 
 ## Homework
 - create uncontrolled EditTodo
