@@ -2,7 +2,7 @@ import { Task } from "../Task/Task";
 
 import {useEffect, useState} from "react";
 import { AddTodo } from "../AddTodo/AddTodo";
-import { TodoService } from "../../services/TodoService";
+import { ToDos } from "../../services/TodoService";
 
 import './TaskList.css';
 
@@ -38,13 +38,15 @@ export function TaskList() {
         newState.push(createdTask);
 
         setTodoList(newState);
+        console.log("CREATE ", createdTask)
     }
 
 
     useEffect( () => {
         async function getTodos() {
-            const response = await TodoService.getAll();
-
+            //const response = await ToDos.getAll();
+            const response = await ToDos.getSingleUser();
+            console.log("Response.todos ", response)
             setTodoList(response.todos);
         }
 

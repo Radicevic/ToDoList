@@ -2,8 +2,9 @@ import { useState } from "react";
 
 import { Button } from '../Button/Button'
 import { EditTodo } from '../EditTodo/EditTodo';
+import { ToDos } from "../../services/TodoService";
 // import {deleteTodo, updateTodo} from "../../services/TodoService";
-import { axiosInstance } from '../../services/axiosIstance';
+// import { axiosInstance } from '../../services/axiosIstance';
 
 import './Task.css'
 
@@ -15,7 +16,9 @@ export function Task ({ onDelete, todo, onEdit }) {
     async function handleDelete() {
         try {
             setIsLoading(true);
-            const response = await deleteTodo(id);
+          //  const response = await deleteTodo(id);
+            const response = await ToDos.delete(id);
+
             console.log('DELTE RESPONSE: ', response)
             onDelete(response.id);
         } catch (e) {
@@ -35,7 +38,9 @@ export function Task ({ onDelete, todo, onEdit }) {
 
             delete payload.id;
 
-            const response = await updateTodo(id, payload);
+          //  const response = await updateTodo(id, payload);
+
+            const response = await ToDos.update(id, payload);
 
             onEdit(response);
         } catch (e) {
@@ -56,8 +61,8 @@ export function Task ({ onDelete, todo, onEdit }) {
 
         try {
             setIsLoading(true);
-            const response = await axiosInstance.put("/todos/" + id, editedTodoTask);
-            onEdit(response.data);
+            const response = await ToDos.update(id, editedTodoTask);
+            onEdit(response);
         } catch (e) {
             setError(e.message);
         } finally {
