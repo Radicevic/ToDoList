@@ -1,44 +1,38 @@
+import {axiosInstance} from "./axiosIstance";
+
 class TodoService {
   constructor() {
-    this.baseUrl = "https://dummyjson.com/todos";
+    this.baseUrl = "/todos";
   }
 
   async getAll() {
-    const res = await fetch(`${this.baseUrl}`);
+    const res = await axiosInstance.get(`${this.baseUrl}`);
 
-    return await res.json();
+    return res.data;
   }
 
   async getSingleUser(id) {
-    const res = await fetch(`${this.baseUrl}/user/${id}`);
+    const res = await axiosInstance.get(`${this.baseUrl}/user/${id}`);
 
-    return await res.json();
+    return res.data;
   }
 
   async delete(id) {
-    const res = await fetch(`${this.baseUrl}/${id}`, { method: "DELETE" });
+    const res = await axiosInstance.delete(`${this.baseUrl}/${id}`);
 
-    return await res.json();
+    return res.data;
   }
 
   async update(id, todo) {
-    const res = await fetch(`${this.baseUrl}/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(todo),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await axiosInstance.put(`${this.baseUrl}/${id}`, todo);
 
-    return await res.json();
+    return res.data;
   }
 
   async create(newTodo) {
-    const res = await fetch(`${this.baseUrl}/add`, {
-      method: "POST",
-      body: JSON.stringify(newTodo),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await axiosInstance.post(`${this.baseUrl}/add`, newTodo);
 
-    return await res.json();
+    return res.data;
   }
 }
 
