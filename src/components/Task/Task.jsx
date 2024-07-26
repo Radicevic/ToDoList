@@ -19,7 +19,7 @@ export function Task ({ onDelete, todo, onEdit }) {
           //  const response = await deleteTodo(id);
             const response = await ToDos.delete(id);
 
-            console.log('DELTE RESPONSE: ', response)
+            console.log('DELETE RESPONSE: ', response)
             onDelete(response.id);
         } catch (e) {
             setError(e.message);
@@ -51,7 +51,7 @@ export function Task ({ onDelete, todo, onEdit }) {
     }
 
     async function handleEdit(editedValue) {
-
+console.log("editedValue ", editedValue)
         const editedTodoTask = {
             ...todo,
             todo: editedValue
@@ -63,6 +63,8 @@ export function Task ({ onDelete, todo, onEdit }) {
             setIsLoading(true);
             const response = await ToDos.update(id, editedTodoTask);
             onEdit(response);
+            console.log("response ", response)
+
         } catch (e) {
             setError(e.message);
         } finally {

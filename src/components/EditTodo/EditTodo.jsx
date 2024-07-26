@@ -15,6 +15,7 @@ export function EditTodo({ titleBefore, titleAfter, label, onEdit }) {
     function handleOkClick() {
         setIsEditing(false);
         onEdit(todoEdit);
+        console.log("todoedit from editTodo",todoEdit   )
     }
 
     function onTodoTaskEdit(e) {

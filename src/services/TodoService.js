@@ -9,8 +9,8 @@ class TodoService {
     return await res.json();
   }
 
-  async getSingleUser() {
-    const res = await fetch(`${this.baseUrl}/user/${1}`);
+  async getSingleUser(id) {
+    const res = await fetch(`${this.baseUrl}/user/${id}`);
 
     return await res.json();
   }
