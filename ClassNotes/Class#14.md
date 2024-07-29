@@ -20,6 +20,7 @@ const user1 = {
 user.name = 'Ivan';
 user.lastName = 'Balić';
 
+// function that returns object
 function createUser(first, last, yearOfBirth) {
     const user = {
         name: first,
@@ -44,7 +45,6 @@ console.log(user1.getFullName() ,' is ', user1.getYearsOld(),' years old');
 console.log(user2.getFullName() ,' is ', user2.getYearsOld(),' years old');
 console.log(user3.getFullName() ,' is ', user3.getYearsOld(),' years old');
 ```
-- use axios instead of fetch method
-- refactor EditTodo component
 
 ## Homework
+- revisit and recap last class topics
