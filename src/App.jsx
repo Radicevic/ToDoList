@@ -17,13 +17,13 @@ function App() {
   );
 }
 
-const car = {
-   printThis () {
-    console.log("THIS ", this)
-  }
-};
+// const car = {
+//    printThis () {
+//     console.log("THIS ", this)
+//   }
+// };
 
-car.printThis();
+// car.printThis();
 
 
 
