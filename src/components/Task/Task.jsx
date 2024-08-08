@@ -50,20 +50,18 @@ export function Task ({ onDelete, todo, onEdit }) {
         }
     }
 
-    async function handleEdit(editedValue) {
-console.log("editedValue ", editedValue)
+    async function handleEdit(newTaskLabel) {
         const editedTodoTask = {
             ...todo,
-            todo: editedValue
-        }
+            todo: newTaskLabel,
+        };
 
-            delete editedTodoTask.id;
+        delete editedTodoTask.id;
 
         try {
             setIsLoading(true);
             const response = await ToDos.update(id, editedTodoTask);
             onEdit(response);
-            console.log("response ", response)
 
         } catch (e) {
             setError(e.message);
@@ -86,12 +84,8 @@ console.log("editedValue ", editedValue)
                 <EditTodo
                     label={label}
                     onEdit={handleEdit}
-                    titleBefore={"Edit"}
-                    titleAfter={"Ok"}
                 />
-                <div>
-                    <Button onClick={handleDelete} title={"Delete"} />
-                </div>
+                <Button onClick={handleDelete} title={"Delete"} />
             </div>
         </div>
     )

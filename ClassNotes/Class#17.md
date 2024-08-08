@@ -2,6 +2,11 @@
 
 ## Key Points
 - refactor EditTodo component
-- deep dive into function `this`
 
 ## Homework
+- Add `Finish All` button
+- Clicking `Finish All` button should strikethrough all tasks
+- Add login form to the bottom of the page
+- Form should have two fields username and password
+- Form should have `Login` button
+- Clicking `Login` button should console.log the form state

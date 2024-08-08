@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { Button } from "../Button/Button";
 import "./EditTodo.css";
 
-export function EditTodo({ titleBefore, titleAfter, label, onEdit }) {
+export function EditTodo({ label, onEdit }) {
+    const [inputValue, setInputValue] = useState(label);
     const [isEditing, setIsEditing] = useState(false);
-    const [todoEdit, setTodoEdit] = useState(label);
-
-    
 
     function handleEditClick() {
         setIsEditing(true);
@@ -14,26 +12,21 @@ export function EditTodo({ titleBefore, titleAfter, label, onEdit }) {
 
     function handleOkClick() {
         setIsEditing(false);
-        onEdit(todoEdit);
-        console.log("todoedit from editTodo",todoEdit   )
+        onEdit(inputValue);
     }
 
-    function onTodoTaskEdit(e) {
-        setTodoEdit(e.target.value);
+    function onInputChange(e) {
+        setInputValue(e.target.value);
     }
+
+    const buttonLabel = isEditing ? 'OK' : 'Edit';
+    const handleClick = isEditing ? handleOkClick : handleEditClick;
 
     return (
         <div>
-            {isEditing ? (
-                <div>
-                    <input type="text" onChange={onTodoTaskEdit} value={todoEdit}/> 
-                    <Button onClick={handleOkClick} title={titleAfter} />
-                </div>
-            ) : (
-                <div>
-                    <Button onClick={handleEditClick} title={titleBefore} />
-                </div>
-            )}
+            {/*{isEditing && <input type="text" onChange={onInputChange} value={inputValue}/>}*/}
+            {isEditing ? <input type="text" onChange={onInputChange} value={inputValue}/> : <></>}
+            <Button onClick={handleClick} title={buttonLabel}/>
         </div>
     );
 }
