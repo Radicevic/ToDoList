@@ -9,7 +9,7 @@ import './TaskList.css';
 export function TaskList() {
 
     const [todoList, setTodoList] = useState([]);
-
+    const [ error, setError] = useState("");
 
     function updateTask (updatedTask){
 
@@ -41,6 +41,26 @@ export function TaskList() {
         console.log("CREATE ", createdTask)
     }
 
+    function clearAllTask (){
+        // const deleteTodo = async (todo) => await ToDos.delete(todo.id);
+        // todoList.forEach(deleteTodo);
+        const promises = [];
+        let newState = [...todoList];
+        todoList.forEach((todo) => {
+            promises.push(ToDos.delete(todo.id)
+            .then(() => {
+            const indexToDelete = newState.findIndex((item) => item.id === todo.id)
+            newState.splice(indexToDelete, 1);
+            }));
+        }); 
+        Promise.all(promises)
+        .then(() => setTodoList(newState))
+        .catch((error)=>{
+            setError(error.response.data.message);
+            setTodoList(newState)
+        });
+    }
+
 
     useEffect( () => {
         async function getTodos() {
@@ -56,16 +76,15 @@ export function TaskList() {
 
     return (
         <div className="task-list">
-             <AddTodo onCreated={createTask} />
-          {
-              todoList.map((item) =>
+             <AddTodo onCreated={createTask} onClearAll={clearAllTask} />
+              {todoList.map((item) =>
               <Task
-                  todo={item}
-                  key={item.id}
-                  onDelete={deleteTask}
-                  onEdit={updateTask}
-              />)
-          }
+              todo={item}
+              key={item.id}
+              onDelete={deleteTask}
+              onEdit={updateTask}
+              />)}
+              <p>{error}</p>
         </div>
     );
 }
