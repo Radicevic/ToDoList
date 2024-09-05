@@ -5,7 +5,6 @@ import { AddTodo } from "../AddTodo/AddTodo";
 import { ToDos } from "../../services/TodoService";
 
 import './TaskList.css';
-import { LogInForm } from "../LogInForm/LogInForm";
 
 export function TaskList() {
 
@@ -53,7 +52,7 @@ export function TaskList() {
             const indexToDelete = newState.findIndex((item) => item.id === todo.id)
             newState.splice(indexToDelete, 1);
             }));
-        }); 
+        });
         Promise.all(promises)
         .then(() => setTodoList(newState))
         .catch((error)=>{
@@ -61,13 +60,13 @@ export function TaskList() {
             setTodoList(newState)
         });
     }
-    
+
     function finishAllTask (){
         const promises = [];
         let newState = [...todoList];
 
                 todoList.forEach((todo) => {
-            
+
                     const finishedTask = {
                         ...todo,
                         completed: true
