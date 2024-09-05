@@ -10,7 +10,7 @@ import { ToDos } from "../../services/TodoService";
 const loggedUserId = 3;
 const status = "Task status";
 
-export function AddTodo({ onCreated, onClearAll}) {
+export function AddTodo({ onCreated, onClearAll, onFinishAll}) {
     const [error, setError] = useState('');
     const [todoTitle, setTodoTitle] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -83,7 +83,8 @@ export function AddTodo({ onCreated, onClearAll}) {
             <input onChange={onTodoTitleChange} value={todoTitle}/>
             <CheckBox change={completedChange} value={completed} title={status}/>
             <Button title='Add' onClick={onAdd}/>
-            <Button title='ClearAll' onClick={onClearAll}/>
+            <Button title='Clear All' onClick={onClearAll}/>
+            <Button title='Finish All' onClick={onFinishAll}/>
         </div>
         {isLoading ? <p>Loading...</p> : <></>}
         {!isLoading && error ? <p>{error}</p> : <></>}

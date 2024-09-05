@@ -19,7 +19,6 @@ export function Task ({ onDelete, todo, onEdit }) {
           //  const response = await deleteTodo(id);
             const response = await ToDos.delete(id);
 
-            console.log('DELETE RESPONSE: ', response)
             onDelete(response.id);
         } catch (e) {
             setError(e.message);
@@ -73,10 +72,10 @@ export function Task ({ onDelete, todo, onEdit }) {
 
 
     return (
-        <div className={`list-item ${completed ? "done" : ''}`}>
+        <div className='list-item'>
             <div onClick={handleUpdate} className='todo-text'>
                 <span>{id}</span>
-                <span>{label}</span>
+                <span className={`${completed ? "done" : ''}`}>{label}</span>
             </div>
             <p>{isLoading ? "Loading..." : ""}</p>
             {!isLoading && error ? <p>{error}</p> : <></>}

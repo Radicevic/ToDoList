@@ -1,4 +1,4 @@
-import {axiosInstance} from "./axiosIstance";
+import { axiosInstance } from "./axiosIstance";
 
 class TodoService {
   constructor() {
@@ -31,6 +31,12 @@ class TodoService {
 
   async create(newTodo) {
     const res = await axiosInstance.post(`${this.baseUrl}/add`, newTodo);
+
+    return res.data;
+  }
+
+  async logIn(newUser) {
+    const res = await axiosInstance.post("/auth/login", newUser);
 
     return res.data;
   }

@@ -5,6 +5,7 @@ import { AddTodo } from "../AddTodo/AddTodo";
 import { ToDos } from "../../services/TodoService";
 
 import './TaskList.css';
+import { LogInForm } from "../LogInForm/LogInForm";
 
 export function TaskList() {
 
@@ -60,6 +61,33 @@ export function TaskList() {
             setTodoList(newState)
         });
     }
+    
+    function finishAllTask (){
+        const promises = [];
+        let newState = [...todoList];
+
+                todoList.forEach((todo) => {
+            
+                    const finishedTask = {
+                        ...todo,
+                        completed: true
+                    }
+
+                    delete finishedTask.id;
+
+                    promises.push(ToDos.update(todo.id, finishedTask)
+            .then((response) => {
+                const indexToUpdate = newState.findIndex((item) => item.id === todo.id)
+                newState.splice(indexToUpdate, 1, response);
+                }))
+        })
+        Promise.all(promises)
+        .then(()=> setTodoList(newState))
+        .catch(()=> {
+            setError(error.response.data.message);
+            setTodoList(newState)
+        })
+    }
 
 
     useEffect( () => {
@@ -76,7 +104,7 @@ export function TaskList() {
 
     return (
         <div className="task-list">
-             <AddTodo onCreated={createTask} onClearAll={clearAllTask} />
+             <AddTodo onCreated={createTask} onClearAll={clearAllTask} onFinishAll={finishAllTask} />
               {todoList.map((item) =>
               <Task
               todo={item}
